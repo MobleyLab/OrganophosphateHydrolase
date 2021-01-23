@@ -1,0 +1,1 @@
+Here you will find all the input and simulations files used to run short MD simulations (10 ns production) on the selected docked poses in complex with the wild type OPH. These docked poses were generated using POSIT, HYBRID, or FRED (OpenEye Toolkits) as described in [`Docking`](../../Docking) and the Methods section in the paper.

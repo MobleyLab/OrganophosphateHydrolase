@@ -1,0 +1,22 @@
+We used the following to run the MCPB.py program developed by Li and Merz (Li and Merz 2016) to determine the parameters of the OPH metal binding site.
+
+1) MCPB.py –i 1HZY.in –s 1
+
+This step generated the small, standard, and large models of the ion metal coordination sphere (more details are provided in Li and Merz 2016).
+
+2) With the generated files, we use the small model to calculate the force constants and the large model to calculate the Merz-Kollman charges by Gaussian09. We used B3LYP/6-31g* level of theory to perform the Gaussian calculations. 
+
+a) For the force constant calculations, there are two steps:
+- QM geometry optimization
+- Evaluation of the Cartesian Hessian matrix; this matrix will be used by the Seminario method to obtain force constants and is stored by Gaussian09 in the binary chk file.
+
+b) For the Merz-kollman population analysis, we performed one calculation, in which the van der Waals (vdw) radii for metal ions were taken from Li and Merz 2016.
+
+3) After performing the QM calculations, we run "MCPB.py -i 1HZY.in -s 2" to generate the final force constant parameters using the Seminario method.
+
+4) Then, we run "MCPB.py -i 1HZY.in -s 3" to perform RESP charge fit to the large model and generate the mol2 files for the metal site residues.
+
+5) Finally, run "MCPB.py -I 1HZY.in -s 4" to generate the PDB file with the renamed metal site residues and the leap source file for the system.
+
+The input files used to run this protocol could be found in the subdirectory [mcpb-inputs] and the outputs corresponding to the metal site residues and the system generated using this protocol can be found in [mcpb-outputs].
+

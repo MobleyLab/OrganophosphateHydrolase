@@ -1,0 +1,7 @@
+software_version g09
+original_pdb 1HZY_H+_monomer_fixed_pdb4_oe.pdb 
+group_name 1HZY
+cut_off 2.8
+ion_ids 5088 5089
+ion_mol2files ZN_1.mol2 ZN_2.mol2
+naa_mol2files WAT.mol2 WAT1.mol2 

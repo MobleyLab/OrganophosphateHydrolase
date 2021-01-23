@@ -1,0 +1,53 @@
+# load the AMBER force fields
+# source leaprc.protein.ff14SB
+tleap -f oldff/leaprc.ff14SB
+source leaprc.gaff
+
+# load the mol2 file corresponding to the substrate
+UNL = loadmol2 paraoxon.mol2 
+saveoff UNL mol.lib
+
+# add the parameters of the metal binding site and load the corresponding mol2 files
+addAtomTypes {
+    { "M1" "Zn" "sp3" }
+    { "M2" "Zn" "sp3" }
+    { "Y1" "N" "sp3" }
+    { "Y2" "N" "sp3" }
+    { "Y3" "O" "sp3" }
+    { "Y4" "O" "sp3" }
+    { "Y5" "N" "sp3" }
+    { "Y6" "N" "sp3" }
+    { "Y7" "O" "sp3" }
+}
+
+HD1 = loadmol2 HD1.mol2
+HD2 = loadmol2 HD2.mol2
+HE1 = loadmol2 HE1.mol2
+HD3 = loadmol2 HD3.mol2
+AP1 = loadmol2 AP1.mol2
+ZN1 = loadmol2 ZN1.mol2
+ZN2 = loadmol2 ZN2.mol2
+WT1 = loadmol2 WT1.mol2
+WT2 = loadmol2 WT2.mol2
+
+loadamberparams 1HZY_mcpbpy.frcmod
+loadamberparams mol.frcmod
+loadoff mol.lib
+loadamberparams frcmod.ions1lm_126_tip3p
+
+# create the protein-ligand complex
+
+ligand = loadmol2 paraoxon.mol2
+protein = loadpdb oph-protein.pdb
+complex = combine {protein ligand}
+
+# save the complex parameters
+saveamberparm complex wt-paraoxon.prmtop wt-paraoxon.inpcrd
+savepdb complex wt-paraoxon.pdb
+
+# create a solvated complex
+addions complex Na+ 0
+addions complex Cl- 0
+solvatebox complex TIP3PBOX 10.0
+savepdb complex wt-paraoxon-solv.pdb
+saveamberparm complex wt-paraoxon-solv.prmtop   wt-paraoxon-solv.inpcrd

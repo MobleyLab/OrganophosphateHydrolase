@@ -1,0 +1,55 @@
+options:
+  resume_setup: yes
+  resume_simulation: yes
+  setup_dir: setup
+  experiments_dir: experiments
+  verbose: yes
+  minimize: no 
+  number_of_iterations: 30000
+  temperature: 300*kelvin
+  pressure: null 
+  output_dir: d253e-h254r
+
+systems:
+  explicit:
+    phase1_path: [oph-d253e-h254r.prmtop, oph-d253e-h254r.inpcrd]
+    phase2_path: [paraoxon.prmtop, paraoxon.inpcrd]
+    ligand_dsl: resname UNL
+    solvent: GBSA 
+    
+
+solvents:
+ GBSA:   
+   nonbonded_method: NoCutoff
+   implicit_solvent: OBC2
+          
+protocols:
+  absolute-binding:
+    complex:                                                                                     
+       alchemical_path:
+           lambda_electrostatics: [1.0, 0.9897922205221176, 0.9732437847367643,
+               0.9567535773991278, 0.9412474822330045, 0.9262655369814915, 0.9093229821683438,
+               0.8903556259485639, 0.8701715667981746, 0.8309002625604859, 0.7988311095310182,
+               0.6227193896092349, 0.4486624934936183, 0.34616510626282126, 0.2846209259777372,
+               0.18071698189991403, 0.08354482902456556, 0.020634962781290296,
+               0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+               0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+           lambda_sterics: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+               1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.95, 0.8999999999999999,
+               0.8397837993287273, 0.7897837993287272, 0.7397837993287272, 0.6784826522452381,
+               0.6220190792771969, 0.576788092287277, 0.526788092287277, 0.476788092287277,
+               0.426788092287277, 0.376788092287277, 0.326788092287277, 0.2849736986254409,
+               0.23497369862544093, 0.19803775090949394, 0.15260587808801257,
+               0.11128855953621576, 0.0749805033953193, 0.056560611842432544,
+               0.03547655237386599, 0.005292650184863713, 0.0]
+    solvent:
+        alchemical_path:
+            lambda_electrostatics: [1.0, 0.9312015615276418, 0.8073418083182633,
+                0.46154943356171985, 0.1123293456037551, 0.0]
+            lambda_sterics: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+
+experiments:
+  system: explicit
+  protocol: absolute-binding
+  restraint:
+    type: Harmonic 
